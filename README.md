@@ -14,3 +14,6 @@ Sway-2
 
 Wayfire-1
 ![Screenshot](https://github.com/DN-debug/waybar-examples/blob/main/screenshot/wayfire_easyL.png)
+
+Wayfire-1
+![Screenshot](https://github.com/DN-debug/waybar-examples/blob/main/screenshot/wayfire2.png)
