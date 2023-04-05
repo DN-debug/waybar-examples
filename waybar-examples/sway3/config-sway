@@ -1,0 +1,172 @@
+{
+    "layer": "top",
+    "position": "bottom",
+    "height": 35,
+    "spacing": 0,
+    "margin-top": 5,
+    "margin-left": 10,
+    "margin-right": 10,
+    "margin-bottom": 10,
+
+
+    // Choose the order of the modules
+
+    "modules-left":["custom/updater", "idle_inhibitor","tray","clock","custom/snip", "sway/language", "backlight"],
+
+    "modules-center": ["sway/workspaces"],
+
+    "modules-right":["custom/media", "custom/network", "pulseaudio","battery", "battery#bat2", "custom/power"],
+
+    // Modules configuration
+
+    "sway/workspaces": {
+        "disable-scroll": false,
+        "all-outputs": false,
+        "format": "{icon}",        
+        "format-icons": {
+          "focused": " ",
+          "urgent": " ",
+          "default": " ",
+        },
+        "icon-size": 14
+      },
+    "keyboard-state": {
+        "numlock": true,
+        "capslock": true,
+        "format": "{name} {icon} ",
+        "format-icons": {
+            "locked": "",
+            "unlocked": ""
+        },
+    },
+    "sway/mode": {
+        "format": "<span style=\"italic\">{}</span>"
+    },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
+        }
+    },
+    "tray": {
+        "icon-size": 18,
+        "spacing": 3,
+        "tooltip": true
+    },
+    "clock": {
+        // "timezone": "America/New_York",
+        "format-alt": "{:%Y-%m-%d}",
+        "tooltip": false
+    },
+    "cpu": {
+        "format": "",
+        "tooltip": true
+    },
+    "memory": {
+        "format": "",
+        "tooltip": true
+    },
+    "temperature": {
+        // "thermal-zone": 2,
+        // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+        "critical-threshold": 80,
+        // "format-critical": "{temperatureC}°C {icon}",
+        "format": "{icon}",
+        "format-icons": [""],
+        "tooltip": true
+    },
+    "backlight": {
+        // "device": "acpi_video1",
+        "format": "{icon}",
+        "format-icons": ["", ""],
+        "tooltip": true
+    },
+    "battery": {
+        "states": {
+            // "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{capacity}%",
+        "format-charging": "",
+        "format-plugged": "",
+        "format-alt": "{icon}",
+        // "format-good": "", // An empty format will hide the module
+        // "format-full": "",
+        "format-icons": ["","","","",""],
+        "tooltip": true
+    },
+    "battery#bat2": {
+        "bat": "BAT2",
+        "tooltip": false
+    },
+    "pulseaudio": {
+        // "scroll-step": 1, // %, can be a float
+        "format": "{icon}",
+        "format-bluetooth": "{icon}",
+        "format-bluetooth-muted": "{icon} {format_source}",
+        "format-muted": "{format_source}",
+        "format-source": "",
+        "format-source-muted": "",
+        "format-icons": {
+            "headphone": " ",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        },
+        "on-click": "bash $HOME/.config/system_scripts/volume up",
+        "on-click-right": "bash $HOME/.config/system_scripts/volume down",
+        "tooltip": false
+    },
+    "custom/media": {
+        "format": "{icon} {}",
+        "return-type": "json",
+        "max-length": 30,
+        "format-icons": {
+            "spotify": " ",
+            "default": ""
+        },
+        "escape": true,
+        "exec": "$HOME/.config/system_scripts/mediaplayer.py 2> /dev/null",
+        "on-click": "notify-send 'Play-Pause' `(playerctl play-pause)`"
+    },
+    "custom/launcher":{
+        "format": "",
+        "on-click": "wofi --show drun -p",
+        "on-click-right": "killall wofi",
+        "tooltip": false
+    },
+    "custom/power":{
+        "format": "",
+        "on-click": "nwg-bar",
+        "tooltip": false
+    },
+    "custom/updater":{
+        "format": "{} Updates",
+        "exec": "checkupdates | wc -l",
+        "exec-if": "[[ $(checkupdates | wc -l) != 0 ]]",
+        "interval": 15,
+        "on-click": "kitty -e yay -Syu"
+    },
+    "custom/snip":{
+        "format": "",
+        "on-click": "grimshot --notify save area $HOME/Pictures/$(zenity --entry --text 'Set filename:' --entry-text '.png')"
+    },
+    "custom/wallpaper":{
+        "format": "",
+        "on-click": "bash ~/.config/system_scripts/pkill_bc"
+    },
+    "custom/network":{
+        "format": "{}",
+        "max-length": 30,
+        "escape": true,
+        "interval": 15,
+        "exec": "bash ~/.config/system_scripts/dynamic_network.sh",
+        "on-click": "kitty -e nmtui"
+    }
+}
+
